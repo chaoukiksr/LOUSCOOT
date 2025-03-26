@@ -1,65 +1,55 @@
 package sccot;
+import java.io.*;
+import java.util.*;
 
+/**
+ * 
+ */
 public class Scooter {
 
-	private String ident;
-	private Boolean available;
-	private String name;
-	private int km;
-	//default constructour
-	public  Scooter(String ident,String name) {
-		this.ident = ident;
-		this.available = true;
-		this.name = name;
-		this.km = 0;
+    /**
+     * Default constructor
+     */
+    public Scooter() {
+    }
+
+    /**
+     * 
+     */
+    private int id;
+
+    /**
+     * 
+     */
+    private String modele;
+
+    /**
+     * 
+     */
+    private String marque;
+
+	public int getId() {
+		return id;
 	}
-	//getters
-	public String getIdent() {
-		return ident;
+
+	public void setId(int id) {
+		this.id = id;
 	}
-	
-	public Boolean getAvailable() {
-		return available;
+
+	public String getModele() {
+		return modele;
 	}
-	
-	public String getName() {
-		return name;
+
+	public void setModele(String modele) {
+		this.modele = modele;
 	}
-	
-	public int getKm() {
-		return km;
+
+	public String getMarque() {
+		return marque;
 	}
-	
-	
-	//setters
-	public void setIdent(String ident) {
-		this.ident = ident;
+
+	public void setMarque(String marque) {
+		this.marque = marque;
 	}
-	
-	public void setAvailable(Boolean available) {
-		this.available = available;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public void setKm(int km) {
-		this.km = km;
-	}
-	
-	//methods
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

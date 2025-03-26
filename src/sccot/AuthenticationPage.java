@@ -7,6 +7,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -92,7 +96,7 @@ public class AuthenticationPage extends JFrame {
 				String username = usernameTextField.getText();
 				String password = new String(passwordTextField.getPassword());
 				if(validateAuth(username,password)) {
-					//Dashboard dashboard = new Dashboard();
+					Dashboard dashboard = new Dashboard();
 					System.out.print("Success");
 					dispose();
 					
@@ -103,11 +107,21 @@ public class AuthenticationPage extends JFrame {
 		});
 	}
 	public boolean validateAuth(String username,String password) {
-		//if(username=="admin" && password=="abc123") {
-	//		return true;
-		//}else {
-		//	return false;
-		//}
-		return username.equals("admin") && password.equals("abc123");
+		String query = "Select * from admin where username = ? and password = ?";
+		try (
+			Connection connect = DataBaseConnection.connect();	
+			PreparedStatement prst = connect.prepareStatement(query)){
+				prst.setString(1, username);
+				prst.setString(2, password);
+				
+				ResultSet rs = prst.executeQuery();
+				
+				return rs.next();			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+		//return username.equals("admin") && password.equals("abc123");
 	}
 }
