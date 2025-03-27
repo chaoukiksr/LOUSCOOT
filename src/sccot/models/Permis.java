@@ -2,6 +2,8 @@ package sccot.models;
 import java.io.*;
 import java.util.*;
 
+import sccot.utils.DataBaseManager;
+
 /**
  * 
  */
@@ -39,7 +41,7 @@ public class Permis {
 		this.id = id;
 	}
 
-	public Date getDateDebut() {
+	public Date getDateDel() {
 		return dateDel;
 	}
 
@@ -55,5 +57,8 @@ public class Permis {
 		this.dateExp= dateExp;
 	}
 	
+	public void addPermis(Permis p) {
+		DataBaseManager.addPermis(p);
+	}
 
 }

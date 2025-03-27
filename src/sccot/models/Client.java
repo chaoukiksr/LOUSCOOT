@@ -2,7 +2,8 @@ package sccot.models;
 import java.io.*;
 import java.util.*;
 
-import sccot.utils.DataBaseConnection;
+import sccot.utils.DataBaseManager;
+
 import java.sql.*;
 import java.sql.Date;
 /**
@@ -15,13 +16,23 @@ public class Client {
     private String telephone;    
     private String adresse;
     private String mail;
+    private String permisId;
     
-    public Client(String nom, String prenom, String telephone, String adresse, String mail) {
+    public String getPermisId() {
+		return permisId;
+	}
+
+	public void setPermisId(String permisId) {
+		this.permisId = permisId;
+	}
+
+	public Client(String nom, String prenom, String telephone, String adresse, String mail,String permisId) {
     	this.nom = nom;
     	this.prenom = prenom;
     	this.telephone = telephone;
     	this.adresse = adresse;
     	this.mail = mail;
+    	this.permisId = permisId;
     	this.id = id++;
     }
     
@@ -63,9 +74,9 @@ public class Client {
 		this.mail = mail;
 	}
     
-    public static void addNewClient(Client c,String permisId) {
+    public static void addNewClient(Client c) {
     	try {
-    		DataBaseConnection.addClient(c, permisId);
+    		DataBaseManager.addClient(c);
     		System.out.print("client is added");
     	}catch(Error e) {
     		System.out.print("error"+e);

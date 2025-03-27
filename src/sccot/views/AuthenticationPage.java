@@ -20,7 +20,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import sccot.utils.DataBaseConnection;
+import sccot.utils.DataBaseManager;
 
 public class AuthenticationPage extends JFrame {
 	private JTextField usernameTextField;
@@ -111,7 +111,7 @@ public class AuthenticationPage extends JFrame {
 	public boolean validateAuth(String username,String password) {
 		String query = "Select * from admin where username = ? and password = ?";
 		try (
-			Connection connect = DataBaseConnection.connect();	
+			Connection connect = DataBaseManager.connect();	
 			PreparedStatement prst = connect.prepareStatement(query)){
 				prst.setString(1, username);
 				prst.setString(2, password);
