@@ -80,6 +80,12 @@ public class DataBaseManager {
 			//if(!resultSet) {
 				//System.out.print("penalite table created successfully\n");
 			//}
+
+			//String employeTable = "create table if not exists penalite(idPenalite int(2) primary key, libelle varchar(50) not null, montant double(4) not null); ";
+			//resultSet = st.execute(penaliteTable);
+			//if(!resultSet) {
+				//System.out.print("penalite table created successfully\n");
+			//}
 			
 			String retourTable = "create table if not exists retour(id int(5) primary key, kmRetour int(8) not null, dateRetour Date not null, idLocation int(8) not null, idPenalite int(2), foreign key idLocation references Location(id),foreign key idPenalite references penalite(id);); ";
 			resultSet = st.execute(retourTable);
