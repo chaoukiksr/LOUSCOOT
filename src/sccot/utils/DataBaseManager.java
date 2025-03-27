@@ -68,8 +68,14 @@ public class DataBaseManager {
 			if(!resultSet) {
 				System.out.print("penalite table created successfully\n");
 			}
-		
-			//String LocationTable = "create table if not exists penalite(idPenalite int(2) primary key, libelle varchar(50) not null, montant double(4) not null); ";
+			// String sccoterTable = "create table if not exists penalite(idPenalite int(2)
+			// primary key, libelle varchar(50) not null, montant double(4) not null); ";
+			// resultSet = st.execute(penaliteTable);
+			// if(!resultSet) {
+			// System.out.print("penalite table created successfully\n");
+			// }
+
+			//String locationTable = "create table if not exists penalite(idPenalite int(2) primary key, libelle varchar(50) not null, montant double(4) not null); ";
 			//resultSet = st.execute(penaliteTable);
 			//if(!resultSet) {
 				//System.out.print("penalite table created successfully\n");
