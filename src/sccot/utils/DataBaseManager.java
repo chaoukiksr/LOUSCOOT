@@ -3,9 +3,13 @@ package sccot.utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
+import sccot.models.Categorie;
 import sccot.models.Client;
 import sccot.models.Model;
 import sccot.models.Permis;
@@ -46,7 +50,7 @@ public class DataBaseManager {
 				System.out.print("model table created successfully\n");			
 			}
 			
-			String categorieTableQuery = "Create Table if not exists categories (id int(2) primary key, libelle varchar(5) not null, idModel int not null, foreign key (idModel) references model(id));";
+			String categorieTableQuery = "Create Table if not exists categories (id int(2) auto_increment primary key, libelle varchar(5) not null, idModel int not null, foreign key (idModel) references model(id));";
 			resultSet = st.execute(categorieTableQuery);
 			if(!resultSet) {
 				System.out.print("categorie table created successfully\n");			
@@ -58,7 +62,7 @@ public class DataBaseManager {
 				System.out.print("categoriesAndModel table created successfully\n");
 			}
 			
-			String categoriesAndPermisTable = "create table if not exists categoriesAndPermis(idCategorie int(2), idPermis varchar(15), primary key(idCategorie,idPermis), foreign key (idCategorie) references categorie(id), foreign key (idPermis) references permis(id)) ";
+			String categoriesAndPermisTable = "create table if not exists categoriesAndPermis(idCategorie int(2) , idPermis varchar(15), primary key(idCategorie,idPermis), foreign key (idCategorie) references categorie(id), foreign key (idPermis) references permis(id)) ";
 			resultSet = st.execute(categoriesAndPermisTable);
 			if(!resultSet) {
 				System.out.print("categorieAndPermis table created successfully\n");
@@ -154,6 +158,39 @@ public class DataBaseManager {
 		}
 		
 	}
-
+	
+	public static void addNewCategorie(Categorie c,Model m) {
+		String query = "Insert into categories (libelle,idModel) values(?,?)";
+		
+		try(Connection con = connect(); PreparedStatement pst = con.prepareStatement(query)){
+			pst.setString(1, c.getLibelle());
+			pst.setInt(2, m.getId());
+			
+			int affectedRows = pst.executeUpdate();
+			if(affectedRows > 0) {
+				System.out.println("inserted the model successfully");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static List<String> fetchCategories(){
+		List <String> categories = new ArrayList<String>();
+		String query = "Select libelle from categories";
+		try(Connection con = connect(); Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(query)){
+			while(rs.next()) {
+				categories.add(rs.getString("libelle"));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return categories;
+	}
+	
+	
 
 }

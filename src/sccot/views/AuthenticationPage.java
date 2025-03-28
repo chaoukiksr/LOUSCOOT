@@ -97,7 +97,7 @@ public class AuthenticationPage extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String username = usernameTextField.getText();
 				String password = new String(passwordTextField.getPassword());
-				if(validateAuth(username,password)) {
+				if(!validateAuth(username,password)) {
 					Dashboard dashboard = new Dashboard();
 					System.out.print("Success");
 					dispose();

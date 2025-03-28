@@ -1,12 +1,15 @@
 package sccot.models;
 import java.io.*;
+import java.sql.SQLException;
 import java.util.*;
+
+import sccot.utils.DataBaseManager;
 
 /**
  * 
  */
 public class Model {
-	private static int id = 0;
+	private static int id = 1;
     private String libelle;
 
     private int cylindrie;
@@ -17,7 +20,7 @@ public class Model {
     public Model(String libelle,int cylendrie) {
     	this.cylindrie = cylendrie;
     	this.libelle = libelle;
-    	this.id = id++;
+    	Model.id = id++;
     }
 
     
@@ -32,9 +35,19 @@ public class Model {
 	public int getCylindrie() {
 		return cylindrie;
 	}
-
-	public void setCylindrie(int cylindrie) {
-		cylindrie = cylindrie;
+	public int getId() {
+		return id;
 	}
-
+	public void setCylindrie(int cylindrie) {
+		this.cylindrie = cylindrie;
+	}
+	
+	public void addNewModal() {
+		try {
+			DataBaseManager.addModel(this);
+			System.out.println("adding new model");
+		}catch(Error e) {
+			e.printStackTrace();
+		}
+	}
 }

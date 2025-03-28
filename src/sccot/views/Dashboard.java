@@ -31,13 +31,14 @@ public class Dashboard extends JFrame {
         JPanel locationPanel = createPanel("Location Page", new Color(33,33,33));
         JPanel scootersPanel = createPanel("Scooters Page", new Color(33,33,33));
         JPanel clientsPanel = createPanel("Clients Page", new Color(33,33,33));
-
+        JPanel permisPanel = createPanel("Gestion des permis", new Color(33,33,33));
+        
         // Add views to CardLayout
         mainPanel.add(homePanel, "Home");
         mainPanel.add(locationPanel, "Location");
         mainPanel.add(scootersPanel, "Scooters");
         mainPanel.add(clientsPanel, "Clients");
-
+        mainPanel.add(permisPanel, "Permis");
         // Sidebar Panel with Buttons
         JPanel sidePanel = new JPanel(new GridLayout(4, 1, 10, 10));
         sidePanel.setBackground(new Color(33, 33, 33));
@@ -47,19 +48,22 @@ public class Dashboard extends JFrame {
         JButton locationButton = new JButton("Location");
         JButton scootersButton = new JButton("Scooters");
         JButton clientsButton = new JButton("Clients");
-
+        JButton permisButton = new JButton("Gestion des permis");
         // Add ActionListeners to switch views
         homeButton.addActionListener(e -> cardLayout.show(mainPanel, "Home"));
         locationButton.addActionListener(e -> cardLayout.show(mainPanel, "Location"));
         scootersButton.addActionListener(e -> cardLayout.show(mainPanel, "Scooters"));
         clientsButton.addActionListener(e -> cardLayout.show(mainPanel, "Clients"));
-
+        permisButton.addActionListener(e -> cardLayout.show(mainPanel, "Permis"));
         // Add buttons to sidePanel
         sidePanel.add(homeButton);
         sidePanel.add(locationButton);
         sidePanel.add(scootersButton);
         sidePanel.add(clientsButton);
-
+        sidePanel.add(permisButton);
+        
+        
+        permisPanel.add(new permisFrame());
         // Add components to JFrame
         add(sidePanel, BorderLayout.WEST);
         add(mainPanel, BorderLayout.CENTER);
