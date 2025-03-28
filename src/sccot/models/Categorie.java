@@ -4,18 +4,19 @@ import java.util.*;
 
 
 public class Categorie {
-
-	private String nom;
+	private static int id = 0;
+	private String libelle;
     
-    public Categorie(String nom) {
-    	this.nom = nom;
+    public Categorie(String libelle) {
+    	this.libelle = libelle;
+    	this.id = id++;
     }
     
-    public String getNom() {
-    	return nom;
+    public String getLibelle() {
+    	return libelle;
     }
-   public void setNom(String nom) {
-	   this.nom = nom;
+   public void setLibelle(String libelle) {
+	   this.libelle = libelle;
    }
 
 }

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import sccot.models.Client;
+import sccot.models.Model;
 import sccot.models.Permis;
 
 public class DataBaseManager {
@@ -39,19 +40,19 @@ public class DataBaseManager {
 			if(!resultSet) {
 				System.out.print("clients table created successfully\n");			
 			}
-			String modelTableQuery = "create table if not exists model(id int(4) primary key, libelle varchar(50) not null, cylendrie int(4) not null)";
+			String modelTableQuery = "create table if not exists model(id int auto_increment primary key, libelle varchar(50) not null, cylendrie int(4) not null)";
 			resultSet = st.execute(modelTableQuery);
 			if(!resultSet) {
 				System.out.print("model table created successfully\n");			
 			}
 			
-			String categorieTableQuery = "Create Table if not exists categories (id int(2) primary key, libelle varchar(5) not null, idModel int(4) not null, foreign key (idModel) references model(id));";
+			String categorieTableQuery = "Create Table if not exists categories (id int(2) primary key, libelle varchar(5) not null, idModel int not null, foreign key (idModel) references model(id));";
 			resultSet = st.execute(categorieTableQuery);
 			if(!resultSet) {
 				System.out.print("categorie table created successfully\n");			
 			}
 			
-			String categoriesAndModelTable = "create table if not exists categoriesAndModel(idCategorie int(2), idModel int(4), primary key(idCategorie,idModel), foreign key (idCategorie) references categorie(id), foreign key (idModel) references Model(id)) ";
+			String categoriesAndModelTable = "create table if not exists categoriesAndModel(idCategorie int(2), idModel int, primary key(idCategorie,idModel), foreign key (idCategorie) references categories(id), foreign key (idModel) references Model(id)) ";
 			resultSet = st.execute(categoriesAndModelTable);
 			if(!resultSet) {
 				System.out.print("categoriesAndModel table created successfully\n");
@@ -63,7 +64,7 @@ public class DataBaseManager {
 				System.out.print("categorieAndPermis table created successfully\n");
 			}
 			
-			String penaliteTable = "create table if not exists penalite(id int(2) primary key, libelle varchar(50) not null, montant double(4) not null); ";
+			String penaliteTable = "create table if not exists penalites(id int(2) primary key, libelle varchar(50) not null, montant double(4,2) not null); ";
 			resultSet = st.execute(penaliteTable);
 			if(!resultSet) {
 				System.out.print("penalite table created successfully\n");
@@ -80,12 +81,22 @@ public class DataBaseManager {
 			//if(!resultSet) {
 				//System.out.print("penalite table created successfully\n");
 			//}
+
+			//String employeTable = "create table if not exists penalite(idPenalite int(2) primary key, libelle varchar(50) not null, montant double(4) not null); ";
+			//resultSet = st.execute(penaliteTable);
+			//if(!resultSet) {
+				//System.out.print("penalite table created successfully\n");
+			//}
 			
-			String retourTable = "create table if not exists retour(id int(5) primary key, kmRetour int(8) not null, dateRetour Date not null, idLocation int(8) not null, idPenalite int(2), foreign key idLocation references Location(id),foreign key idPenalite references penalite(id);); ";
-			resultSet = st.execute(retourTable);
-			if(!resultSet) {
-				System.out.print("retour table created successfully\n");
-			}
+			//String retourTable = "create table if not exists retour(id int(5) primary key,"
+			//		+ " kmRetour int(8) not null, dateRetour Date not null, idLocation int(8) not null,"
+			//		+ " idPenalite int(2), foreign key (idLocation) references Location(id),"
+				//	+ "foreign key (idPenalite) references penalites(id);); ";
+			
+			//resultSet = st.execute(retourTable);
+		//	if(!resultSet) {
+			//	System.out.print("retour table created successfully\n");
+		//	}
 		
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -127,4 +138,22 @@ public class DataBaseManager {
 			System.out.println("error inserting permis");
 		}
 	}
+	public static void addModel(Model m) {
+		String query = "Insert into model (libelle,cylendrie) values(?,?)";
+		
+		try(Connection con = connect(); PreparedStatement pst = con.prepareStatement(query)){
+			pst.setString(1, m.getLibelle());
+			pst.setInt(2, m.getCylindrie());
+			
+			int affectedRows = pst.executeUpdate();
+			if(affectedRows > 0) {
+				System.out.println("inserted the model successfully");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+
 }

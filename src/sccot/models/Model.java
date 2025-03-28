@@ -6,23 +6,21 @@ import java.util.*;
  * 
  */
 public class Model {
+	private static int id = 0;
+    private String libelle;
+
+    private int cylindrie;
 
     /**
      * Default constructor
      */
-    public Model() {
+    public Model(String libelle,int cylendrie) {
+    	this.cylindrie = cylendrie;
+    	this.libelle = libelle;
+    	this.id = id++;
     }
 
-    /**
-     * 
-     */
-    private String libelle;
-
-    /**
-     * 
-     */
-    private int Cylindree;
-
+    
 	public String getLibelle() {
 		return libelle;
 	}
@@ -31,12 +29,12 @@ public class Model {
 		this.libelle = libelle;
 	}
 
-	public int getCylindree() {
-		return Cylindree;
+	public int getCylindrie() {
+		return cylindrie;
 	}
 
-	public void setCylindree(int cylindree) {
-		Cylindree = cylindree;
+	public void setCylindrie(int cylindrie) {
+		cylindrie = cylindrie;
 	}
 
 }
